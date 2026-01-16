@@ -4,10 +4,10 @@ package com.example.commerce;
 public class Product {
     
     // 필드 - 이 객체가 가지고 있어야 하는 정보를 저장하는 변수
-    String name;        // 상품명
-    int price;          // 가격
-    String description;  // 설명
-    int stock;          // 재고 수량
+    private String name;        // 상품명
+    private int price;          // 가격
+    private String description;  // 설명
+    private int stock;          // 재고 수량
 
 
     // 생성자
@@ -31,6 +31,11 @@ public class Product {
     // 설명을 외부에서 읽을 수 있게 해 주는 getter
     public String getDescription() {
         return description;
+    }
+
+    // 재고를 외부에서 읽을 수 있게 해 주는 getter
+    public int getStock() {
+        return stock;
     }
 
 
