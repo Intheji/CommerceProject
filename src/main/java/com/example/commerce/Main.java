@@ -18,5 +18,24 @@ public class Main {
         products.add(new Product("iPhone 16", 1350000, "Apple의 최신 스마트폰", 30));
         products.add(new Product("MacBook Pro", 2400000, "M3 칩셋이 탑재된 노트북", 20));
         products.add(new Product("AirPods Pro", 350000, "노이즈 캔슬링 무선 이어폰", 100));
+
+
+        // 상품 목록 출력
+        for (int i = 0; i < products.size(); i++) {
+
+            // 리스트에서 i 번째 상품을 꺼낸다
+            Product product = products.get(i);
+            int menuNumber = i + 1;
+
+            // 메뉴판 출력
+            System.out.println(menuNumber + ". " + product.getName()
+                    + " | " + product.getPrice() + "원"
+                    + " | " + product.getDescription());
+        }
+        
+        // 종료
+        System.out.println("0. 종료        | 프로그램 종료");
     }
+
+
 }
