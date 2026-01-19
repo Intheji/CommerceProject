@@ -6,13 +6,14 @@ import java.util.Scanner;
 public class CommerceSystem {
 
     // Main에서 받은 상품 리스트를 저장할 필드
-    private List<Product> products;
+    private List<Category> categories;
 
     // 생성자: Main이 만든 상품 리스트를 받음
-    public CommerceSystem(List<Product> products) {
-        this.products = products;
+    public CommerceSystem(List<Category> categories) {
+        this.categories = categories;
     }
 
+    // 프로그램 시작 메서드
     public void start() {
 
         // 사용자 입력을 받기 위한 Scanner
@@ -26,19 +27,16 @@ public class CommerceSystem {
         while (run) {
 
             // 프로그램 시작 출력
-            System.out.println("[실시간 커머스 플랫폼 - 전자제품]");
+            System.out.println("[실시간 커머스 플랫폼 메인]");
 
-            // 상품 목록 출력
-            for (int i = 0; i < products.size(); i++) {
+            // 카테고리 목록 출력
+            for (int i = 0; i < categories.size(); i++) {
 
                 // 리스트에서 i 번째 상품을 꺼낸다
-                Product product = products.get(i);
                 int menuNumber = i + 1;
+                Category category = categories.get(i);
+                System.out.println(menuNumber + ". " + category.getName());
 
-                // 메뉴판 출력
-                System.out.println(menuNumber + ". " + product.getName()
-                        + " | " + product.getPrice() + "원"
-                        + " | " + product.getDescription());
             }
 
             // 종료

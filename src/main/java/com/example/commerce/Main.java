@@ -3,22 +3,38 @@ package com.example.commerce;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
 
 public class Main {
     public static void main(String[] args) {
 
-        // 여러 Product를 담기 위한 List 생성
-        List<Product> products = new ArrayList<>();
+        // 전자제품 카테고리용 상품 리스트 만들기
+        List<Product> electronicsProducts = new ArrayList<>();
+        electronicsProducts.add(new Product("Galaxy S25", 1200000, "최신 안드로이드 스마트폰", 50));
+        electronicsProducts.add(new Product("iPhone 16", 1350000, "Apple의 최신 스마트폰", 30));
+        electronicsProducts.add(new Product("MacBook Pro", 2400000, "M3 칩셋이 탑재된 노트북", 20));
+        electronicsProducts.add(new Product("AirPods Pro", 350000, "노이즈 캔슬링 무선 이어폰", 100));
 
-        // Product 객체 생성을 하고 List에 추가한다
-        // new Produc()를 이용해서 실제 상품 객체를 생성한다
-        products.add(new Product("Galaxy S25", 1200000, "최신 안드로이드 스마트폰", 50));
-        products.add(new Product("iPhone 16", 1350000, "Apple의 최신 스마트폰", 30));
-        products.add(new Product("MacBook Pro", 2400000, "M3 칩셋이 탑재된 노트북", 20));
-        products.add(new Product("AirPods Pro", 350000, "노이즈 캔슬링 무선 이어폰", 100));
+        // 의류 카테고리용 상품 리스트 만들기
+        List<Product> clothingProducts = new ArrayList<>();
 
-        // products를 CommerceSystem에 넘겨줌
-        new CommerceSystem(products).start();
+        // 식품 카테고리용 상품 리스트 만들기
+        List<Product> foodProducts = new ArrayList<>();
+
+        // Category 객체 만듦
+        Category electronics = new Category("전자제품", electronicsProducts);
+        Category clothing = new Category("의류", clothingProducts);
+        Category food = new Category("식품", foodProducts);
+
+        List<Category> categories = new ArrayList<>();
+        categories.add(electronics);
+        categories.add(clothing);
+        categories.add(food);
+
+
+        // CommerceSystem에 categories 넘김
+        CommerceSystem commerceSystem = new CommerceSystem(categories);
+        commerceSystem.start();
 
     }
 }
