@@ -51,7 +51,72 @@ public class CommerceSystem {
                 System.out.println("커머스 플랫폼을 종료합니다");
                 run = false;
             } else {
-                System.out.println("아직 안 돼요 ㅜ");
+
+                // 사용자가 입력한 번호를 인덱스로 바꿈
+                int categoryIndex = choice - 1;
+
+                // 사용자가 입력한 번호가 잘못되면 돌아가기
+                if (categoryIndex < 0 || categoryIndex >= categories.size()) {
+                    System.out.println("잘못된 입력입니다: " + choice);
+                    continue;
+                }
+
+                // categoryIndex에 해당하는 카테고리를 리스트에서 꺼냄
+                Category selectedCategory = categories.get(categoryIndex);
+
+                // 카테고리용
+                boolean inCategory = true;
+
+                while (inCategory) {
+                    System.out.println("[ " + selectedCategory.getName() + "카테고리 ]");
+
+                    // 상품 목록 가져오기
+                    List<Product> products = selectedCategory.getProducts();
+
+                    // 상품 목록 출력
+                    for (int i = 0; i < products.size(); i++) {
+                        Product product = products.get(i);
+                        int menuNumber = i + 1;
+
+                        System.out.println(menuNumber + ". " + product.getName()
+                                + " | " + product.getPrice() + "원"
+                                + " | " + product.getDescription());
+
+                    }
+
+                    System.out.println("0. 뒤로가기");
+                    System.out.print(" 선택> ");
+
+                    // 입력 받기
+                    int productChoice = sc.nextInt();
+                    if (productChoice == 0) {
+                        inCategory = false;         // 이건 메인으로 복귀
+                    } else {
+
+                        // 사용자가 입력한 상품 번호를 인덱스로 변환
+                        int productIndex = productChoice - 1;
+
+                        // 상품 번호 범위 벗어났나요?
+                        if (productIndex < 0 || productIndex >= products.size()) {
+                            System.out.println("잘못된 상품 번호입니다: " + productChoice);
+                            continue;
+                        }
+
+                        // 선택한 상품 가져옴
+                        Product selectedProduct = products.get(productIndex);
+
+                        // 출력
+                        System.out.println("선택한 상품: " + selectedProduct.getName()
+                                + " | " + selectedProduct.getPrice() + "원"
+                                + " | " + selectedProduct.getDescription()
+                                + " | 재고: " + selectedProduct.getStock() + "개");
+
+                    }
+
+                    System.out.println();
+
+                }
+
             }
 
             System.out.println();
