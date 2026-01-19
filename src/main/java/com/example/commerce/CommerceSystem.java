@@ -5,6 +5,10 @@ import java.util.Scanner;
 
 public class CommerceSystem {
 
+    private String formatPrice(int price) {
+        return String.format("%,d", price);
+    }
+
     // Main에서 받은 상품 리스트를 저장할 필드
     private List<Category> categories;
 
@@ -79,7 +83,7 @@ public class CommerceSystem {
                         int menuNumber = i + 1;
 
                         System.out.println(menuNumber + ". " + product.getName()
-                                + " | " + product.getPrice() + "원"
+                                + " | " + formatPrice(product.getPrice()) + "원"
                                 + " | " + product.getDescription());
 
                     }
@@ -107,7 +111,7 @@ public class CommerceSystem {
 
                         // 출력
                         System.out.println("선택한 상품: " + selectedProduct.getName()
-                                + " | " + selectedProduct.getPrice() + "원"
+                                + " | " + formatPrice(selectedProduct.getPrice()) + "원"
                                 + " | " + selectedProduct.getDescription()
                                 + " | 재고: " + selectedProduct.getStock() + "개");
 
