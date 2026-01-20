@@ -1,5 +1,6 @@
 package com.example.commerce;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -21,7 +22,11 @@ public class CommerceSystem {
     }
 
     public CommerceSystem(List<Category> categories, Customer customer) {
-        this.categories = categories;
+
+        // categories 원본을 그대로 들고 있지 않고 복사본 저장
+        this.categories = new ArrayList<>(categories);
+
+        // 필드 private
         this.customer = customer;
     }
 
