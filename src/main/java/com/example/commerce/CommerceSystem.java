@@ -17,14 +17,15 @@ public class CommerceSystem {
     private Customer customer;
 
     // 생성자: Main이 만든 상품 리스트를 받음
-    public CommerceSystem(List<Category> categories) {
-        this.categories = categories;
-    }
-
     public CommerceSystem(List<Category> categories, Customer customer) {
 
         // categories 원본을 그대로 들고 있지 않고 복사본 저장
         this.categories = new ArrayList<>(categories);
+
+        // customer가 null일 때 예외처리
+        if (customer == null) {
+            throw new IllegalArgumentException("Customer는 null일 수 없습니다.");
+        }
 
         // 필드 private
         this.customer = customer;
