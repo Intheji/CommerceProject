@@ -1,5 +1,6 @@
 package com.example.commerce;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Category {
@@ -23,7 +24,8 @@ public class Category {
 
 
     public List<Product> getProducts() {
-        return products;
+        // 원본을 그대로 주지 않고, 원본을 복사한 "새 리스트"를 만들어서 준다
+        return new ArrayList<>(products);
     }
 
 }
