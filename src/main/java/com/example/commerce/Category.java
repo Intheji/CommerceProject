@@ -17,6 +17,27 @@ public class Category {
         this.products = products;
     }
 
+    // 상품 1개를 카테고리에 추가하는 메서드
+    public void addProduct(Product product) {
+
+        if (products == null) {
+            return;
+        }
+
+        products.add(product); // 원본 리스트에 추가
+    }
+
+    // 상품 1개를 카테고리에서 삭제하는 메서드
+    public void removeProduct(Product product) {
+
+        // null이면 아무 것도 하지 않음
+        if (products == null) {
+            return;
+        }
+
+        products.remove(product);   // 원본 리스트에서 제거
+    }
+
 
     public String getName() {
         return name;
