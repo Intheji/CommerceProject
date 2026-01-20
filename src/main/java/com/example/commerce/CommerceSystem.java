@@ -12,9 +12,17 @@ public class CommerceSystem {
     // Main에서 받은 상품 리스트를 저장할 필드
     private List<Category> categories;
 
+    // 필드
+    private Customer customer;
+
     // 생성자: Main이 만든 상품 리스트를 받음
     public CommerceSystem(List<Category> categories) {
         this.categories = categories;
+    }
+
+    public CommerceSystem(List<Category> categories, Customer customer) {
+        this.categories = categories;
+        this.customer = customer;
     }
 
     // 프로그램 시작 메서드
@@ -114,6 +122,18 @@ public class CommerceSystem {
                                 + " | " + formatPrice(selectedProduct.getPrice()) + "원"
                                 + " | " + selectedProduct.getDescription()
                                 + " | 재고: " + selectedProduct.getStock() + "개");
+
+                        // 선택한 상품 가격을 이번 주문 금액으로
+                        customer.addOrderAmount(selectedProduct.getPrice());
+
+                        // 고객 상태 출력(누적 금액 + 등급)
+                        System.out.println(
+                                "고객: " + customer.getName()
+                                + " | 누적 주문 금액: " + String.format("%,d", customer.getTotalOrderAmount())
+                                + " | 등급: " + customer.getGrade()
+                        );
+
+
 
                     }
 

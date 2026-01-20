@@ -3,7 +3,6 @@ package com.example.commerce;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Callable;
 
 public class Main {
     public static void main(String[] args) {
@@ -32,8 +31,10 @@ public class Main {
         categories.add(food);
 
 
-        // CommerceSystem에 categories 넘김
-        CommerceSystem commerceSystem = new CommerceSystem(categories);
+        // CommerceSystem에 categories customer 넘김
+        Customer customer = new Customer("박현지", "park@test.com");
+
+        CommerceSystem commerceSystem = new CommerceSystem(categories, customer);
         commerceSystem.start();
 
     }

@@ -16,12 +16,12 @@ public class Category {
         this.products = products;
     }
 
+
     public String getName() {
         return name;
     }
-    public void setName(String name) {
-        this.name = name;
-    }
+
+
     public List<Product> getProducts() {
         return products;
     }
