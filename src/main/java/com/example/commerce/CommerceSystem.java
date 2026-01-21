@@ -121,11 +121,25 @@ public class CommerceSystem {
                         // 선택한 상품 가져옴
                         Product selectedProduct = products.get(productIndex);
 
-                        // 출력
-                        System.out.println("선택한 상품: " + selectedProduct.getName()
+                        // 장바구니 추가 여부 질문
+                        System.out.println();
+                        System.out.println("\"" + selectedProduct.getName()
                                 + " | " + formatPrice(selectedProduct.getPrice()) + "원"
                                 + " | " + selectedProduct.getDescription()
-                                + " | 재고: " + selectedProduct.getStock() + "개");
+                                + " | " + selectedProduct.getStock() + "\"");
+                        System.out.println("위 상품을 장바구니에 추가하시겠습니까?");
+                        System.out.println("1. 확인       2. 취소");
+
+                        // 입력 받기
+                        int addChoice = readInt(sc, "선택> ");
+
+                        if (addChoice == 1) {
+                            System.out.println("다음 단계: 수량 입력 및 장바구니 저장(음~ 아직 구현이 안 됐더요)");
+                        } else if (addChoice == 2) {
+                            System.out.println("장바구니 추가를 취소했습니다.");
+                        } else {
+                            System.out.println("잘못된 입력입니다.");
+                        }
 
                         // 선택한 상품 가격을 이번 주문 금액으로
                         customer.addOrderAmount(selectedProduct.getPrice());
