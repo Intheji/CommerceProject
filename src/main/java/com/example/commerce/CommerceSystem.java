@@ -12,9 +12,8 @@ public class CommerceSystem {
 
     // Main에서 받은 상품 리스트를 저장할 필드
     private List<Category> categories;
-
-    // 필드
     private Customer customer;
+    private Cart cart = new Cart();
 
 
     public CommerceSystem(List<Category> categories, Customer customer) {
@@ -134,7 +133,25 @@ public class CommerceSystem {
                         int addChoice = readInt(sc, "선택> ");
 
                         if (addChoice == 1) {
-                            System.out.println("다음 단계: 수량 입력 및 장바구니 저장(음~ 아직 구현이 안 됐더요)");
+
+                            int quantity = readInt(sc, "수량: ");
+
+                            // 수량이 1 이상인지 확인
+                            if (quantity <= 0) {
+                                System.out.println("수량은 1개 이상 입력하세요.");
+                                continue;
+                            }
+
+                            // 재고 체크
+                            if (quantity > selectedProduct.getStock()) {
+                                System.out.println("재고가 부족합니다. 현재 재고: " + selectedProduct.getStock() + "개");
+                                continue;
+                            }
+
+                            // 장바구니 추가
+                            cart.addItem(selectedProduct, quantity);
+                            System.out.println(selectedProduct.getName() + "가 " + quantity + "개 장바구니에 추가되었습니다.");
+
                         } else if (addChoice == 2) {
                             System.out.println("장바구니 추가를 취소했습니다.");
                         } else {
@@ -174,7 +191,7 @@ public class CommerceSystem {
         while (true) {
 
             // 안내 문구 출력
-            System.out.println(message);
+            System.out.print(message);
 
             String input = sc.nextLine();
 

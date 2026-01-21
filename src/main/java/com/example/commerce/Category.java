@@ -20,10 +20,7 @@ public class Category {
     // 상품 1개를 카테고리에 추가하는 메서드
     public void addProduct(Product product) {
 
-        if (products == null) {
-            return;
-        }
-
+        // 동일한 걸 받았는지 확인하는 메서드
         products.add(product); // 원본 리스트에 추가
     }
 
@@ -45,7 +42,8 @@ public class Category {
 
 
     public List<Product> getProducts() {
-        // 원본을 그대로 주지 않고, 원본을 복사한 "새 리스트"를 만들어서 준다
+        // 원본을 그대로 주지 않고, 원본을 복사한 "새 리스트"를 만들어서 준다 복사 시점의 데이터만 받게 됨
+        // Collections.unmodifiableList(products) < 읽기 전용으로 불러오지만 리스트에 변화가 생겼을 때 즉각적으로 반영해 줌
         return new ArrayList<>(products);
     }
 
