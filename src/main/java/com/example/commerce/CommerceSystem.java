@@ -16,7 +16,7 @@ public class CommerceSystem {
     // 필드
     private Customer customer;
 
-    // 생성자: Main이 만든 상품 리스트를 받음
+
     public CommerceSystem(List<Category> categories, Customer customer) {
 
         // categories 원본을 그대로 들고 있지 않고 복사본 저장
@@ -60,9 +60,8 @@ public class CommerceSystem {
             // 종료
             System.out.println("0. 종료        | 프로그램 종료");
 
-            // 입력 받음
-            System.out.print("선택> ");
-            int choice = sc.nextInt();
+            // readInt 메서드로 입력받아서 예외처리
+            int choice = readInt(sc, "선택> ");
 
             // 입력 처리
             if (choice == 0) {
@@ -103,10 +102,9 @@ public class CommerceSystem {
                     }
 
                     System.out.println("0. 뒤로가기");
-                    System.out.print(" 선택> ");
 
-                    // 입력 받기
-                    int productChoice = sc.nextInt();
+                    // readInt 메서드로 입력받아서 예외처리
+                    int productChoice = readInt(sc, "선택> ");
                     if (productChoice == 0) {
                         inCategory = false;         // 이건 메인으로 복귀
                     } else {
@@ -139,8 +137,6 @@ public class CommerceSystem {
                                 + " | 등급: " + customer.getGrade()
                         );
 
-
-
                     }
 
                     System.out.println();
@@ -154,5 +150,28 @@ public class CommerceSystem {
         }
 
         sc.close();
+
     }
+
+
+    // 입력값이 숫자가 아닐 시에 예외처리
+    private int readInt(Scanner sc, String message) {
+
+        while (true) {
+
+            // 안내 문구 출력
+            System.out.println(message);
+
+            String input = sc.nextLine();
+
+            try {
+                return Integer.parseInt(input);
+            } catch (NumberFormatException e) {
+                System.out.println("보기에 보이는 숫자만 입력해 주세요! ㅜㅜ");
+            }
+
+        }
+
+    }
+
 }
