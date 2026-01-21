@@ -83,7 +83,9 @@ public class CommerceSystem {
                 }
 
                 System.out.println("[장바구니 내역]");
-                
+
+                int totalPrice = 0;
+
                 for (CartItem item : cart.getItems()) {
                     
                     Product p = item.getProduct();
@@ -92,8 +94,38 @@ public class CommerceSystem {
 
                     System.out.println(p.getName() + " | " + formatPrice(p.getPrice()) + "원" 
                             + " | " + p.getDescription() + " | " + quantity + "개");
+
+                    totalPrice += p.getPrice() * quantity;
                 }
 
+                System.out.println("\n[총 주문 금액]");
+                System.out.println(String.format("%,d", totalPrice) + "원");
+
+                System.out.println("\n1. 주문 확정    2. 메인으로 돌아가기");
+
+                int confirm = readInt(sc, "선택> ");
+
+                if (confirm == 1) {
+                    totalPrice = 0;
+                    for (CartItem item : cart.getItems()) {
+                        Product p = item.getProduct();
+                        int quantity = item.getQuantity();
+                        totalPrice += p.getPrice() * quantity;
+
+                        int beforeStock = p.getStock();
+                        p.decreaseStock(quantity);
+                        int afterStock = p.getStock();
+
+                        System.out.println(p.getName() + " 재고가 " + beforeStock + "개에서 " + afterStock + "개로 업데이트되었습니다.");
+                    }
+                    customer.addOrderAmount(totalPrice);
+                    cart.clear();
+                    System.out.println("주문이 완료되었습니다...! 총 금액: " + String.format("%,d", totalPrice) + "원");
+                } else if (confirm == 2) {
+                    System.out.println("메인으로 돌아갑니다.");
+                } else {
+                    System.out.println("잘못된 입력입니다. 메인으로 돌아갑니다.");
+                }
                 continue;
                 
             }
@@ -203,9 +235,6 @@ public class CommerceSystem {
                         } else {
                             System.out.println("잘못된 입력입니다.");
                         }
-
-                        // 선택한 상품 가격을 이번 주문 금액으로
-                        customer.addOrderAmount(selectedProduct.getPrice());
 
                         // 고객 상태 출력(누적 금액 + 등급)
                         System.out.println(

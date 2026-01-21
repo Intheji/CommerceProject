@@ -38,7 +38,17 @@ public class Product {
         return stock;
     }
 
+    // 재고 줄이는 메서드
+    public void decreaseStock(int quantity) {
 
+        if (quantity <= 0) {
+            return;
+        }
 
+        if (quantity > stock) {
+            return;
+        }
+        stock -= quantity;
+    }
 
 }
