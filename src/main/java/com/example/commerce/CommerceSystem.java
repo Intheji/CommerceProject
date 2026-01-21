@@ -56,6 +56,13 @@ public class CommerceSystem {
 
             }
 
+            if (!cart.isEmpty()) {
+
+                System.out.println("\n[주문 관리]");
+                System.out.println("4. 장바구니 확인   | 장바구니를 확인 후 주문");
+                System.out.println("5. 주문 취소      | 진행중인 주문 취소");
+            }
+
             // 종료
             System.out.println("0. 종료        | 프로그램 종료");
 
@@ -66,7 +73,46 @@ public class CommerceSystem {
             if (choice == 0) {
                 System.out.println("커머스 플랫폼을 종료합니다");
                 run = false;
-            } else {
+            } 
+
+            // 4번 장바구니 확인
+            if (choice == 4) {
+                if (cart.isEmpty()) {
+                    System.out.println("장바구니가 비어있어용.");
+                    continue;
+                }
+
+                System.out.println("[장바구니 내역]");
+                
+                for (CartItem item : cart.getItems()) {
+                    
+                    Product p = item.getProduct();
+                    
+                    int quantity = item.getQuantity();
+
+                    System.out.println(p.getName() + " | " + formatPrice(p.getPrice()) + "원" 
+                            + " | " + p.getDescription() + " | " + quantity + "개");
+                }
+
+                continue;
+                
+            }
+
+            // 5번: 주문 취소 장바구니 비움
+            if (choice == 5) {
+
+                if (cart.isEmpty()) {
+                    System.out.println("취소할 주문이 없습니다. 장바구니가 비어있습니다.");
+                    continue;
+                }
+
+                cart.clear();
+
+                System.out.println("진행중인 주문이 취소되었습니다. 장바구니를 비웠습니다.");
+            }
+            
+            
+            else {
 
                 // 사용자가 입력한 번호를 인덱스로 바꿈
                 int categoryIndex = choice - 1;
