@@ -96,23 +96,32 @@ public class CommerceSystem {
                 int confirm = InputUtil.readInt(sc, "선택> ");
 
                 if (confirm == 1) {
+
+                    CustomerGrade gradeBeforeOrder = customer.getGradeEnum();
+
                     totalPrice = 0;
                     for (CartItem item : cart.getItems()) {
-                        Product p = item.getProduct();
-                        int quantity = item.getQuantity();
-                        totalPrice += p.getPrice() * quantity;
+                        Product p = item.getProduct();      // 장바구니에서 상품 꺼냄
+                        int quantity = item.getQuantity();  // 장바구니에서 수량 꺼냄
+                        totalPrice += p.getPrice() * quantity; // 총액
 
-                        int beforeStock = p.getStock();
-                        p.decreaseStock(quantity);
-                        int afterStock = p.getStock();
+                        int beforeStock = p.getStock(); // 재고 차감 전에 재고 저장..... 이것도 일종의 swap
+                        p.decreaseStock(quantity);  // 재고 차감
+                        int afterStock = p.getStock();  // 재고 차감 후 저장
 
                         System.out.println(p.getName() + "\n 재고가 " + beforeStock + "개에서 " + afterStock + "개로 업데이트되었습니다.");
                     }
-                    customer.addOrderAmount(totalPrice);
+
+                    long originalPrice = totalPrice;   // 얘가 할인 전 금액
+                    long discountPrice = gradeBeforeOrder.calculateDiscount(originalPrice); // 할인을 하는 금액
+                    long finalPrice = totalPrice - discountPrice;   // 최종 결제 금액
+                    customer.addOrderAmount(originalPrice);
                     cart.clear();
-                    System.out.println("\n주문이 완료되었습니다...! 총 금액: " + String.format("%,d", totalPrice) + "원\n");
+                    System.out.println("\n주문이 완료되었습니다...! 총 금액: " + String.format("%,d", finalPrice) + "원\n");
+
                 } else if (confirm == 2) {
                     System.out.println("메인으로 돌아갑니다.");
+
                 } else {
                     System.out.println("잘못된 입력입니다. 메인으로 돌아갑니다.");
                 }
