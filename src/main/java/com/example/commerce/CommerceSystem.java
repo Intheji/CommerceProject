@@ -14,6 +14,7 @@ public class CommerceSystem {
     private List<Category> categories;
     private Customer customer;
     private Cart cart = new Cart();
+    private AdminSystem adminSystem;
 
 
     public CommerceSystem(List<Category> categories, Customer customer) {
@@ -26,8 +27,8 @@ public class CommerceSystem {
             throw new IllegalArgumentException("Customer는 null일 수 없습니다.");
         }
 
-        // 필드 private
         this.customer = customer;
+        this.adminSystem = new AdminSystem(categories);
     }
 
     // 프로그램 시작 메서드
@@ -60,9 +61,9 @@ public class CommerceSystem {
                 System.out.println("4. 장바구니 확인   | 장바구니를 확인 후 주문");
                 System.out.println("5. 주문 취소      | 진행중인 주문 취소");
             }
-
-            // 종료
+            
             System.out.println("0. 종료        | 프로그램 종료");
+            System.out.println("9. 관리자 모드  | 상품 추가/수정/삭제");
 
             // readInt 메서드로 입력받아서 예외처리
             int choice = readInt(sc, "선택> ");
@@ -134,6 +135,13 @@ public class CommerceSystem {
             if (choice == 0) {
                 System.out.println("커머스 플랫폼을 종료합니다");
                 run = false;
+            }
+
+            // 9번: 관리자 모드
+            if (choice == 9) {
+
+                adminSystem.start(sc);
+                continue;
             }
             
             
