@@ -51,4 +51,28 @@ public class Product {
         stock -= quantity;
     }
 
+    // 가격 변경
+    public void changePrice(int newPrice) {
+        if (newPrice < 0) {
+            return;
+        }
+        this.price = newPrice;
+    }
+
+    // 설명 변경
+    public void changeDescription(String newDescription) {
+        if (newDescription == null) {
+            return;
+        }
+        this.description = newDescription;
+    }
+
+    // 재고 변경
+    public void changeStock(int newStock) {
+        if (newStock < 0) {
+            return;
+        }
+        this.stock = newStock;
+    }
+
 }
