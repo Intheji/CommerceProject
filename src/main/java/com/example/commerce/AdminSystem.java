@@ -21,7 +21,18 @@ public class AdminSystem {
             return;
         }
 
-        System.out.println("관리자 모드에 진입");
+        boolean isAdmin = true;
+        while (isAdmin) {
+
+            System.out.println("\n[관리자 모드]");
+            System.out.println("1. 상품 추가");
+            System.out.println("2. 상품 수정");
+            System.out.println("3. 상품 삭제");
+            System.out.println("4. 전체 상품 현황");
+            System.out.println("0. 메인으로 돌아가기");
+
+            int adminChoice = InputUtil.readInt(sc, "선택>");
+        }
 
     }
 

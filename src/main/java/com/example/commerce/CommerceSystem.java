@@ -66,7 +66,7 @@ public class CommerceSystem {
             System.out.println("9. 관리자 모드  | 상품 추가/수정/삭제");
 
             // readInt 메서드로 입력받아서 예외처리
-            int choice = readInt(sc, "선택> ");
+            int choice = InputUtil.readInt(sc, "선택> ");
 
 
             // 4번 장바구니 확인
@@ -93,7 +93,7 @@ public class CommerceSystem {
 
                 System.out.println("\n1. 주문 확정    2. 메인으로 돌아가기");
 
-                int confirm = readInt(sc, "선택> ");
+                int confirm = InputUtil.readInt(sc, "선택> ");
 
                 if (confirm == 1) {
                     totalPrice = 0;
@@ -181,7 +181,7 @@ public class CommerceSystem {
                     System.out.println("0. 뒤로가기");
 
                     // readInt 메서드로 입력받아서 예외처리
-                    int productChoice = readInt(sc, "선택> ");
+                    int productChoice = InputUtil.readInt(sc, "선택> ");
                     if (productChoice == 0) {
                         inCategory = false;         // 이건 메인으로 복귀
                     } else {
@@ -208,11 +208,11 @@ public class CommerceSystem {
                         System.out.println("1. 확인       2. 취소");
 
                         // 입력 받기
-                        int addChoice = readInt(sc, "선택> ");
+                        int addChoice = InputUtil.readInt(sc, "선택> ");
 
                         if (addChoice == 1) {
 
-                            int quantity = readInt(sc, "수량: ");
+                            int quantity = InputUtil.readInt(sc, "수량: ");
 
                             // 수량이 1 이상인지 확인
                             if (quantity <= 0) {
@@ -249,27 +249,6 @@ public class CommerceSystem {
         }
 
         sc.close();
-
-    }
-
-
-    // 입력값이 숫자가 아닐 시에 예외처리
-    private int readInt(Scanner sc, String message) {
-
-        while (true) {
-
-            // 안내 문구 출력
-            System.out.print(message);
-
-            String input = sc.nextLine();
-
-            try {
-                return Integer.parseInt(input);
-            } catch (NumberFormatException e) {
-                System.out.println("보기에 보이는 숫자만 입력해 주세요! ㅜㅜ");
-            }
-
-        }
 
     }
 
