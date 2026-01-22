@@ -28,7 +28,7 @@ public class CommerceSystem {
         }
 
         this.customer = customer;
-        this.adminSystem = new AdminSystem(categories);
+        this.adminSystem = new AdminSystem(categories, this.cart);
     }
 
     // 프로그램 시작 메서드
@@ -242,14 +242,10 @@ public class CommerceSystem {
                                 + " | 누적 주문 금액: " + String.format("%,d", customer.getTotalOrderAmount())
                                 + " | 등급: " + customer.getGrade()
                         );
-
                     }
                 }
             }
         }
-
         sc.close();
-
     }
-
 }

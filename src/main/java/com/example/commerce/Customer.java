@@ -26,9 +26,6 @@ public class Customer {
         return name;
     }
 
-    public String getEmail() {
-        return email;
-    }
 
     public long getTotalOrderAmount() {
         return totalOrderAmount;

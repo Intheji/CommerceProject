@@ -24,17 +24,6 @@ public class Category {
         products.add(product); // 원본 리스트에 추가
     }
 
-    // 상품 1개를 카테고리에서 삭제하는 메서드
-    public void removeProduct(Product product) {
-
-        // null이면 아무 것도 하지 않음
-        if (products == null) {
-            return;
-        }
-
-        products.remove(product);   // 원본 리스트에서 제거
-    }
-
 
     public String getName() {
         return name;
@@ -61,6 +50,26 @@ public class Category {
         }
 
         return false;
+    }
+
+    public Product findProduct(String name) {
+        String keyword = name.trim();
+
+        if (keyword.isEmpty()) {
+            return null;
+        }
+
+        for (Product product : products) {
+
+            if (product.getName().equalsIgnoreCase(keyword)) {
+                return product;
+            }
+        }
+        return null;
+    }
+
+    public void removeProduct(Product product) {
+        products.remove(product);
     }
 
 }

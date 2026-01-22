@@ -43,4 +43,13 @@ public class Cart {
     public void clear() {
         items.clear();
     }
+
+    public void removeProduct(Product product) {
+
+        if (product == null) {
+            return;
+        }
+
+        items.removeIf(item -> item.getProduct() == product);
+    }
 }

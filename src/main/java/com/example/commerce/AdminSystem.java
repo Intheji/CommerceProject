@@ -1,5 +1,6 @@
 package com.example.commerce;
 
+import javax.swing.*;
 import javax.swing.text.Utilities;
 import java.util.List;
 import java.util.Scanner;
@@ -7,9 +8,11 @@ import java.util.Scanner;
 public class AdminSystem {
 
     private final List<Category> categories;
+    private final Cart cart;
 
-    public AdminSystem(List<Category> categories) {
+    public AdminSystem(List<Category> categories, Cart cart) {
         this.categories = categories;
+        this.cart = cart;
     }
 
     public void start(Scanner sc) {
@@ -52,9 +55,13 @@ public class AdminSystem {
 
             if (adminChoice == 1) {
                 addProduct(sc);
+            } else if (adminChoice == 3) {
+                removeProduct(sc);
             } else {
-                System.out.println();
+                System.out.println("잘못된 입력입니다.");
             }
+
+
         }
     }
 
@@ -131,6 +138,49 @@ public class AdminSystem {
             return null;
         }
         return this.categories.get(index);
+    }
+
+    private void removeProduct(Scanner sc) {
+
+        Category category = selectCategory(sc);
+
+        if (category == null) {
+            System.out.println("상품 삭제를 취소했습니다.");
+            return;
+        }
+
+        System.out.print("삭제할 상품명(0 입력 시 취소): ");
+        String name = sc.nextLine();
+
+        if ("0".equals(name)) {
+            System.out.println("상품 삭제 취소");
+            return;
+        }
+
+        Product target = category.findProduct(name);
+
+        if (target == null) {
+            System.out.println("이런 것 없음");
+            return;
+        }
+
+        System.out.print("\n삭제 대상 상품: ");
+        System.out.println(target.getName() + " | " + String.format("%,d", target.getPrice()) + "원"
+                + " | " + target.getDescription()
+                + " | 재고: " + target.getStock() + "개");
+
+        System.out.println("\n님 정말 삭제하실 거예요?");
+        System.out.println("1. 삭제     2. 취소");
+
+        int confirm = InputUtil.readInt(sc, "선택> ");
+
+        if (confirm != 1) {
+            System.out.println("삭제를 취소함.");
+            return;
+        }
+
+        category.removeProduct(target);
+        System.out.println("상품이 삭제되었음.");
     }
 
 }
