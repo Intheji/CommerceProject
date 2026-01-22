@@ -24,7 +24,7 @@ public class AdminSystem {
                 adminMenu(sc);
                 return;
             }
-            System.out.println("비밀번호가 틀렸습니다. 님 지금 (" + passwordAttempt + "번 틀림.");
+            System.out.println("비밀번호가 틀렸습니다. 님 지금 " + passwordAttempt + "번 틀림. 3번 틀리면 메인으로 감.");
         }
         System.out.println("님 3회 틀렸고 메인으로 갑니다");
     }
@@ -43,7 +43,7 @@ public class AdminSystem {
             System.out.println("4. 전체 상품 현황");
             System.out.println("0. 메인으로 돌아가기");
 
-            int adminChoice = InputUtil.readInt(sc, "선택>");
+            int adminChoice = InputUtil.readInt(sc, "선택> ");
 
             if (adminChoice == 0) {
                 System.out.println("메인으로 돌아갑니다.");
@@ -71,12 +71,31 @@ public class AdminSystem {
 
         System.out.println("\n[상품 추가]");
 
-        System.out.println("상품명: ");
-        String name = sc.nextLine();
+        String name;
+
+        // 중복 상품명 검사
+        while (true) {
+            // 상품명 입력
+            System.out.print("0 입력 시에 취소됩니다.\n상품명: ");
+            name = sc.nextLine();
+
+            if ("0".equals(name)) {
+                System.out.println("상품 추가를 취소함");
+                return;
+            }
+
+            if (category.hasProduct(name)) {
+                System.out.println("이미 등록된 상품입니다.");
+                continue;
+            }
+
+            break;
+
+        }
 
         int price = InputUtil.readInt(sc, "가격: ");
 
-        System.out.println("설명: ");
+        System.out.print("설명: ");
         String description = sc.nextLine();
 
         int stock = InputUtil.readInt(sc, "재고: ");

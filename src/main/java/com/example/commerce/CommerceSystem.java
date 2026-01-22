@@ -63,7 +63,7 @@ public class CommerceSystem {
             }
             
             System.out.println("0. 종료        | 프로그램 종료");
-            System.out.println("9. 관리자 모드  | 상품 추가/수정/삭제");
+            System.out.println("6. 관리자 모드  | 상품 추가/수정/삭제");
 
             // readInt 메서드로 입력받아서 예외처리
             int choice = InputUtil.readInt(sc, "선택> ");
@@ -138,7 +138,7 @@ public class CommerceSystem {
             }
 
             // 9번: 관리자 모드
-            if (choice == 9) {
+            if (choice == 6) {
 
                 adminSystem.start(sc);
                 continue;

@@ -47,4 +47,20 @@ public class Category {
         return new ArrayList<>(products);
     }
 
+    public boolean hasProduct(String name) {
+
+        if (name == null || name.isBlank()) {
+            return false;
+        }
+
+        for (Product product : products) {
+
+            if (product.getName().equalsIgnoreCase(name)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 }
