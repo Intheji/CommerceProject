@@ -48,7 +48,6 @@ public class CommerceSystem {
 
             // 카테고리 목록 출력
             for (int i = 0; i < categories.size(); i++) {
-
                 // 리스트에서 i 번째 상품을 꺼낸다
                 int menuNumber = i + 1;
                 Category category = categories.get(i);
@@ -57,7 +56,6 @@ public class CommerceSystem {
             }
 
             if (!cart.isEmpty()) {
-
                 System.out.println("\n[주문 관리]");
                 System.out.println("4. 장바구니 확인   | 장바구니를 확인 후 주문");
                 System.out.println("5. 주문 취소      | 진행중인 주문 취소");
@@ -69,11 +67,6 @@ public class CommerceSystem {
             // readInt 메서드로 입력받아서 예외처리
             int choice = readInt(sc, "선택> ");
 
-            // 입력 처리
-            if (choice == 0) {
-                System.out.println("커머스 플랫폼을 종료합니다");
-                run = false;
-            } 
 
             // 4번 장바구니 확인
             if (choice == 4) {
@@ -87,14 +80,10 @@ public class CommerceSystem {
                 int totalPrice = 0;
 
                 for (CartItem item : cart.getItems()) {
-                    
                     Product p = item.getProduct();
-                    
                     int quantity = item.getQuantity();
-
                     System.out.println(p.getName() + " | " + formatPrice(p.getPrice()) + "원" 
                             + " | " + p.getDescription() + " | " + quantity + "개");
-
                     totalPrice += p.getPrice() * quantity;
                 }
 
@@ -116,18 +105,17 @@ public class CommerceSystem {
                         p.decreaseStock(quantity);
                         int afterStock = p.getStock();
 
-                        System.out.println(p.getName() + " 재고가 " + beforeStock + "개에서 " + afterStock + "개로 업데이트되었습니다.");
+                        System.out.println(p.getName() + "\n 재고가 " + beforeStock + "개에서 " + afterStock + "개로 업데이트되었습니다.");
                     }
                     customer.addOrderAmount(totalPrice);
                     cart.clear();
-                    System.out.println("주문이 완료되었습니다...! 총 금액: " + String.format("%,d", totalPrice) + "원");
+                    System.out.println("\n주문이 완료되었습니다...! 총 금액: " + String.format("%,d", totalPrice) + "원\n");
                 } else if (confirm == 2) {
                     System.out.println("메인으로 돌아갑니다.");
                 } else {
                     System.out.println("잘못된 입력입니다. 메인으로 돌아갑니다.");
                 }
                 continue;
-                
             }
 
             // 5번: 주문 취소 장바구니 비움
@@ -139,13 +127,17 @@ public class CommerceSystem {
                 }
 
                 cart.clear();
-
                 System.out.println("진행중인 주문이 취소되었습니다. 장바구니를 비웠습니다.");
+            }
+
+            // 0번: 프로그램 종료
+            if (choice == 0) {
+                System.out.println("커머스 플랫폼을 종료합니다");
+                run = false;
             }
             
             
             else {
-
                 // 사용자가 입력한 번호를 인덱스로 바꿈
                 int categoryIndex = choice - 1;
 
@@ -162,7 +154,7 @@ public class CommerceSystem {
                 boolean inCategory = true;
 
                 while (inCategory) {
-                    System.out.println("[ " + selectedCategory.getName() + "카테고리 ]");
+                    System.out.println("\n[ " + selectedCategory.getName() + "카테고리 ]");
 
                     // 상품 목록 가져오기
                     List<Product> products = selectedCategory.getProducts();
@@ -244,15 +236,8 @@ public class CommerceSystem {
                         );
 
                     }
-
-                    System.out.println();
-
                 }
-
             }
-
-            System.out.println();
-
         }
 
         sc.close();
