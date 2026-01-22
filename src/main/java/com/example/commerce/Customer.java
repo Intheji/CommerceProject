@@ -12,14 +12,14 @@ public class Customer {
     private long totalOrderAmount;
     
     // 등급
-    private String grade;
+    private CustomerGrade grade;
     
     // 고객 생성 시 이름/이메일을 받고 초기값 세팅
     public Customer(String name, String email) {
         this.name = name;
         this.email = email;
         this.totalOrderAmount = 0L;
-        this.grade = "브론즈";
+        this.grade = CustomerGrade.BRONZE;
     }
 
     public String getName() {
@@ -32,6 +32,11 @@ public class Customer {
     }
 
     public String getGrade() {
+        return grade.getDescription();
+    }
+
+    // enum 자체를 꺼냄
+    public CustomerGrade getGradeEnum() {
         return grade;
     }
 
@@ -54,13 +59,13 @@ public class Customer {
     private void updateGrade() {
 
         if (totalOrderAmount >= 2000000) {
-            grade = "플래티넘";
+            grade = CustomerGrade.PLATINUM;
         } else if (totalOrderAmount >= 1000000) {
-            grade = "골드";
+            grade = CustomerGrade.GOLD;
         } else if (totalOrderAmount >= 500000) {
-            grade = "실버";
+            grade = CustomerGrade.SLIVER;
         } else {
-            grade = "브론즈";
+            grade = CustomerGrade.BRONZE;
         }
     }
 }
