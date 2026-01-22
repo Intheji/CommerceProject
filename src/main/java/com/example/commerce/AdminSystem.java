@@ -1,7 +1,6 @@
 package com.example.commerce;
 
 import javax.swing.*;
-import javax.swing.text.Utilities;
 import java.util.List;
 import java.util.Scanner;
 
@@ -57,6 +56,8 @@ public class AdminSystem {
                 addProduct(sc);
             } else if (adminChoice == 3) {
                 removeProduct(sc);
+            } else if (adminChoice == 4) {
+                printAllproducts();
             } else {
                 System.out.println("잘못된 입력입니다.");
             }
@@ -182,6 +183,34 @@ public class AdminSystem {
         category.removeProduct(target);
         cart.removeProduct(target);
         System.out.println("상품이 삭제되었음.");
+    }
+
+    // 4: 전체 상품 현황 메서드
+    private void printAllproducts() {
+
+        System.out.println("\n[전체 상품 현황]");
+
+        for (Category category : categories) {
+
+            System.out.println("카테고리: "  + category.getName());
+
+            List<Product> products = category.getProducts();
+
+            if (products.isEmpty()) {
+                System.out.println("등록된 상품이 없는데요?");
+                continue;
+            }
+
+            for (int i = 0; i < products.size(); i++) {
+                Product product = products.get(i);
+
+                System.out.println((i + 1) + ". "
+                        + product.getName()
+                        + " | " + String.format("%,d", product.getPrice()) + "원"
+                        + " | " + product.getDescription()
+                        + " | 재고: " + product.getStock() + "개");
+            }
+        }
     }
 
 }
