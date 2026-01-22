@@ -14,13 +14,24 @@ public class AdminSystem {
 
     public void start(Scanner sc) {
 
-        System.out.print("관리자 비밀번호를 입력하세요: ");
-        String password = sc.nextLine();
+        // 비밀번호를 최대 3번까지 입력받음
+        for (int passwordAttempt = 1; passwordAttempt <= 3; passwordAttempt++) {
+            System.out.print("관리자 비밀번호를 입력하세요: ");
+            String password = sc.nextLine();
 
-        if (!"1234".equals(password)) {
-            System.out.println("비밀번호가 틀렸습니다.");
-            return;
+            if ("1234".equals(password)) {
+                System.out.println("관리자 인증 성공");
+                adminMenu(sc);
+                return;
+            }
+            System.out.println("비밀번호가 틀렸습니다. 님 지금 (" + passwordAttempt + "번 틀림.");
         }
+        System.out.println("님 3회 틀렸고 메인으로 갑니다");
+    }
+
+
+
+    private void adminMenu(Scanner sc) {
 
         boolean isAdmin = true;
         while (isAdmin) {
@@ -44,10 +55,10 @@ public class AdminSystem {
             } else {
                 System.out.println();
             }
-
         }
-
     }
+
+
 
     private void addProduct(Scanner sc) {
 
@@ -75,6 +86,8 @@ public class AdminSystem {
 
         System.out.println("상품이 추가되었습니다");
     }
+
+
 
     private Category selectCategory(Scanner sc) {
         System.out.println("\n[카테고리 선택]");
