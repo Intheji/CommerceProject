@@ -180,6 +180,7 @@ public class AdminSystem {
         }
 
         category.removeProduct(target);
+        cart.removeProduct(target);
         System.out.println("상품이 삭제되었음.");
     }
 

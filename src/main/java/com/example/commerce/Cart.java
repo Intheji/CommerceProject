@@ -44,12 +44,28 @@ public class Cart {
         items.clear();
     }
 
-    public void removeProduct(Product product) {
+
+    // 장바구니에서 찾아서 제거
+    public boolean removeProduct(Product product) {
 
         if (product == null) {
-            return;
+            return false;
         }
 
-        items.removeIf(item -> item.getProduct() == product);
+//        boolean removed = false;
+
+        // 역방향 for문: 리스트에서 삭제를 하면서 앞으로 가면 인덱스가 당겨져서 건너뛰는 문제가 생길 수 있다.....
+//        for (int i = items.size() - 1; i >= 0; i--) {
+//
+//            CartItem item = items.get(i);
+//
+//            if (item.getProduct() == product) {
+//                items.remove(i);
+//                removed = true;
+//            }
+//        }
+
+        // removeIf 조건에 맞는 요소를 리스트에서 삭제
+        return items.removeIf(item -> item.getProduct() == product);
     }
 }
