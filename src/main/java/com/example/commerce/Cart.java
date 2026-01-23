@@ -1,6 +1,7 @@
 package com.example.commerce;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class Cart {
 
@@ -25,17 +26,6 @@ public class Cart {
         return items.isEmpty();
     }
 
-    public void printCart() {
-        for (CartItem item : items) {
-            Product product = item.getProduct();
-            int quantity = item.getQuantity();
-
-            System.out.println(product.getName() + " | " + product.getPrice() + "원"
-                    + " | " + product.getDescription()
-                    + " | 수량: " + quantity + "개 장바구니에 추가되었습니다." );
-        }
-    }
-
     public ArrayList<CartItem> getItems() {
         return new ArrayList<>(items);
     }
@@ -52,20 +42,25 @@ public class Cart {
             return false;
         }
 
-//        boolean removed = false;
-
-        // 역방향 for문: 리스트에서 삭제를 하면서 앞으로 가면 인덱스가 당겨져서 건너뛰는 문제가 생길 수 있다.....
-//        for (int i = items.size() - 1; i >= 0; i--) {
-//
-//            CartItem item = items.get(i);
-//
-//            if (item.getProduct() == product) {
-//                items.remove(i);
-//                removed = true;
-//            }
-//        }
-
         // removeIf 조건에 맞는 요소를 리스트에서 삭제
         return items.removeIf(item -> item.getProduct() == product);
+    }
+
+    public boolean removeCartItemName(String name) {
+        if (name == null || name.isEmpty()) {
+            return false;
+        }
+
+        String keyword = name.toLowerCase();
+
+        int before = items.size();
+
+        items = items.stream()
+                .filter(item -> !item.getProduct().getName(). toLowerCase().equals(keyword))
+                .collect(Collectors.toCollection(ArrayList::new));
+
+        int after = items.size();
+
+        return after < before;
     }
 }

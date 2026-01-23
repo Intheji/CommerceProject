@@ -17,4 +17,10 @@ public class InputUtil {
             }
         }
     }
+
+    // 문자열 입력받는 메서드
+    public static String readString(Scanner sc, String message) {
+        System.out.print(message);
+        return sc.nextLine();
+    }
 }

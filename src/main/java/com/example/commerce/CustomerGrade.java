@@ -16,10 +16,6 @@ public enum CustomerGrade {
         this.description = description;
     }
 
-    public int getDiscountPercentage() {
-        return discountPercentage;
-    }
-
     public String getDescription() {
         return description;
     }

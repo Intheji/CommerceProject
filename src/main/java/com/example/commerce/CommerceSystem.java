@@ -91,8 +91,7 @@ public class CommerceSystem {
                 System.out.println("\n[총 주문 금액]");
                 System.out.println(String.format("%,d", totalPrice) + "원");
 
-                System.out.println("\n1. 주문 확정    2. 메인으로 돌아가기");
-
+                System.out.println("\n1. 주문 확정    2. 메인으로 돌아가기     3. 장바구니 상품 제거");
                 int confirm = InputUtil.readInt(sc, "선택> ");
 
                 // 주문 확정
@@ -125,7 +124,19 @@ public class CommerceSystem {
                 } else if (confirm == 2) {
                     System.out.println("메인으로 돌아갑니다.");
 
-                } else {
+                } else if (confirm == 3) {
+                    String removeName = InputUtil.readString(sc, "제거할 상품명을 입력하세요: ");
+
+                    boolean removed = cart.removeCartItemName(removeName);
+
+                    if (removed) {
+                        System.out.println(removeName + "을 장바구니에서 삭제했습니다");
+                    } else {
+                        System.out.println("이 상품이 없어요");
+                    }
+                    continue;
+                }
+                else {
                     System.out.println("잘못된 입력입니다. 메인으로 돌아갑니다.");
                 }
                 continue;
