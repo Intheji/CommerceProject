@@ -3,6 +3,7 @@ package com.example.commerce;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.IntStream;
 
 public class CommerceSystem {
 
@@ -48,13 +49,18 @@ public class CommerceSystem {
             System.out.println("[실시간 커머스 플랫폼 메인]");
 
             // 카테고리 목록 출력
-            for (int i = 0; i < categories.size(); i++) {
-                // 리스트에서 i 번째 상품을 꺼낸다
-                int menuNumber = i + 1;
+//            for (int i = 0; i < categories.size(); i++) {
+//                // 리스트에서 i 번째 상품을 꺼낸다
+//                int menuNumber = i + 1;
+//                Category category = categories.get(i);
+//                System.out.println(menuNumber + ". " + category.getName());
+//
+//            }
+            IntStream.range(0, categories.size()).forEach(i -> {
                 Category category = categories.get(i);
+                int menuNumber = i + 1;
                 System.out.println(menuNumber + ". " + category.getName());
-
-            }
+            });
 
             if (!cart.isEmpty()) {
                 System.out.println("\n[주문 관리]");
@@ -105,7 +111,7 @@ public class CommerceSystem {
                         int quantity = item.getQuantity();  // 장바구니에서 수량 꺼냄
                         totalPrice += p.getPrice() * quantity; // 총액
 
-                        int beforeStock = p.getStock(); // 재고 차감 전에 재고 저장..... 이것도 일종의 swap
+                        int beforeStock = p.getStock(); // 재고 차감 전에 재고 저장.....
                         p.decreaseStock(quantity);  // 재고 차감
                         int afterStock = p.getStock();  // 재고 차감 후 저장
 
@@ -169,23 +175,43 @@ public class CommerceSystem {
 
                 // 카테고리용
                 boolean inCategory = true;
+                ProductFilter productFilter = new ProductFilter();
 
                 while (inCategory) {
                     System.out.println("\n[ " + selectedCategory.getName() + "카테고리 ]");
 
-                    // 상품 목록 가져오기
-                    List<Product> products = selectedCategory.getProducts();
+                    System.out.println("1. 전체 상품 보기");
+                    System.out.println("2. 100만원 이하 상품이 궁금해요?");
+                    System.out.println("3. 100만원 초과 상품이 궁금해요?");
+                    System.out.println("0. 뒤로가기");
 
-                    // 상품 목록 출력
-                    for (int i = 0; i < products.size(); i++) {
-                        Product product = products.get(i);
-                        int menuNumber = i + 1;
+                    int viewChoice = InputUtil.readInt(sc, "선택> ");
 
-                        System.out.println(menuNumber + ". " + product.getName()
-                                + " | " + formatPrice(product.getPrice()) + "원"
-                                + " | " + product.getDescription());
-
+                    // 카테고리에서 나가기
+                    if (viewChoice == 0) {
+                        break;
                     }
+
+                    // 상품 목록 가져오기
+                    List<Product> allProducts = selectedCategory.getProducts();
+
+                    // 필터하고 보여줌
+                    List<Product> showProducts;
+
+                    if (viewChoice == 1) {
+                        showProducts = productFilter.all(allProducts);
+                    } else if (viewChoice == 2) {
+                        showProducts = productFilter.underMillion(allProducts);
+                        System.out.println("\n[100만원 이하 상품 목록]");
+                    } else if (viewChoice == 3) {
+                        showProducts = productFilter.overMillion(allProducts);
+                        System.out.println("\n[100만원 초과 상품 목록]");
+                    } else {
+                        System.out.println("잘못된 입력이에염");
+                        continue;
+                    }
+
+                    productFilter.printProducts(showProducts);
 
                     System.out.println("0. 뒤로가기");
 
@@ -199,13 +225,13 @@ public class CommerceSystem {
                         int productIndex = productChoice - 1;
 
                         // 상품 번호 범위 벗어났나요?
-                        if (productIndex < 0 || productIndex >= products.size()) {
+                        if (productIndex < 0 || productIndex >= showProducts.size()) {
                             System.out.println("잘못된 상품 번호입니다: " + productChoice);
                             continue;
                         }
 
                         // 선택한 상품 가져옴
-                        Product selectedProduct = products.get(productIndex);
+                        Product selectedProduct = showProducts.get(productIndex);
 
                         // 장바구니 추가 여부 질문
                         System.out.println();
