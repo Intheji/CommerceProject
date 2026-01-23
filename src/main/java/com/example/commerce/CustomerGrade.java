@@ -4,7 +4,7 @@ package com.example.commerce;
 public enum CustomerGrade {
 
     BRONZE(0, "브론즈"),
-    SLIVER(5, "실버"),
+    SILVER(5, "실버"),
     GOLD(10, "골드"),
     PLATINUM(15, "플래티넘");
 

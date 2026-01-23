@@ -63,7 +63,7 @@ public class Customer {
         } else if (totalOrderAmount >= 1000000) {
             grade = CustomerGrade.GOLD;
         } else if (totalOrderAmount >= 500000) {
-            grade = CustomerGrade.SLIVER;
+            grade = CustomerGrade.SILVER;
         } else {
             grade = CustomerGrade.BRONZE;
         }
