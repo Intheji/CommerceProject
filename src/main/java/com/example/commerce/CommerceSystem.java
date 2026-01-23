@@ -35,6 +35,9 @@ public class CommerceSystem {
     // 프로그램 시작 메서드
     public void start() {
 
+        // 메인메뉴 출력
+        printMainMenu();
+
         // 사용자 입력을 받기 위한 Scanner
         Scanner sc = new Scanner(System.in);
 
@@ -45,25 +48,6 @@ public class CommerceSystem {
         // run이 true인 동안 계속 반복
         while (run) {
 
-            // 프로그램 시작 출력
-            System.out.println("[실시간 커머스 플랫폼 메인]");
-
-            // 카테고리 목록 출력(스트림)
-            IntStream.range(0, categories.size()).forEach(i -> {
-                Category category = categories.get(i);
-                int menuNumber = i + 1;
-                System.out.println(menuNumber + ". " + category.getName());
-            });
-
-            // 장바구니가 비어있지 않으면 주문 관리 메뉴 출력
-            if (!cart.isEmpty()) {
-                System.out.println("\n[주문 관리]");
-                System.out.println("4. 장바구니 확인   | 장바구니를 확인 후 주문");
-                System.out.println("5. 주문 취소      | 진행중인 주문 취소");
-            }
-            
-            System.out.println("0. 종료        | 프로그램 종료");
-            System.out.println("6. 관리자 모드  | 상품 추가/수정/삭제");
 
             // readInt 메서드로 입력받아서 예외처리
             int choice = InputUtil.readInt(sc, "선택> ");
@@ -292,5 +276,27 @@ public class CommerceSystem {
             }
         }
         sc.close();
+    }
+
+    private void printMainMenu() {
+        // 프로그램 시작 출력
+        System.out.println("[실시간 커머스 플랫폼 메인]");
+
+        // 카테고리 목록 출력(스트림)
+        IntStream.range(0, categories.size()).forEach(i -> {
+            Category category = categories.get(i);
+            int menuNumber = i + 1;
+            System.out.println(menuNumber + ". " + category.getName());
+        });
+
+        // 장바구니가 비어있지 않으면 주문 관리 메뉴 출력
+        if (!cart.isEmpty()) {
+            System.out.println("\n[주문 관리]");
+            System.out.println("4. 장바구니 확인   | 장바구니를 확인 후 주문");
+            System.out.println("5. 주문 취소      | 진행중인 주문 취소");
+        }
+
+        System.out.println("0. 종료        | 프로그램 종료");
+        System.out.println("6. 관리자 모드  | 상품 추가/수정/삭제");
     }
 }
