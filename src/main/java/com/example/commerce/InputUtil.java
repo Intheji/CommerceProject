@@ -7,7 +7,7 @@ public class InputUtil {
     // 입력값이 숫자가 아닐 때 예외처리
     public static int readInt(Scanner sc, String message) {
         while (true) {
-            System.out.println(message);
+            System.out.print(message);
             String input = sc.nextLine();
 
             try {
