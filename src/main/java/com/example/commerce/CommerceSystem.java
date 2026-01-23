@@ -29,7 +29,7 @@ public class CommerceSystem {
         }
 
         this.customer = customer;
-        this.adminSystem = new AdminSystem(categories, this.cart);
+        this.adminSystem = new AdminSystem(this.categories, this.cart);
     }
 
     // 프로그램 시작 메서드
@@ -48,20 +48,14 @@ public class CommerceSystem {
             // 프로그램 시작 출력
             System.out.println("[실시간 커머스 플랫폼 메인]");
 
-            // 카테고리 목록 출력
-//            for (int i = 0; i < categories.size(); i++) {
-//                // 리스트에서 i 번째 상품을 꺼낸다
-//                int menuNumber = i + 1;
-//                Category category = categories.get(i);
-//                System.out.println(menuNumber + ". " + category.getName());
-//
-//            }
+            // 카테고리 목록 출력(스트림)
             IntStream.range(0, categories.size()).forEach(i -> {
                 Category category = categories.get(i);
                 int menuNumber = i + 1;
                 System.out.println(menuNumber + ". " + category.getName());
             });
 
+            // 장바구니가 비어있지 않으면 주문 관리 메뉴 출력
             if (!cart.isEmpty()) {
                 System.out.println("\n[주문 관리]");
                 System.out.println("4. 장바구니 확인   | 장바구니를 확인 후 주문");
@@ -87,8 +81,8 @@ public class CommerceSystem {
                 int totalPrice = 0;
 
                 for (CartItem item : cart.getItems()) {
-                    Product p = item.getProduct();
-                    int quantity = item.getQuantity();
+                    Product p = item.getProduct();      // 상품
+                    int quantity = item.getQuantity();  // 수량
                     System.out.println(p.getName() + " | " + formatPrice(p.getPrice()) + "원" 
                             + " | " + p.getDescription() + " | " + quantity + "개");
                     totalPrice += p.getPrice() * quantity;
@@ -101,8 +95,10 @@ public class CommerceSystem {
 
                 int confirm = InputUtil.readInt(sc, "선택> ");
 
+                // 주문 확정
                 if (confirm == 1) {
 
+                    // 주문 전 고객 등급 저장
                     CustomerGrade gradeBeforeOrder = customer.getGradeEnum();
 
                     totalPrice = 0;
@@ -115,6 +111,7 @@ public class CommerceSystem {
                         p.decreaseStock(quantity);  // 재고 차감
                         int afterStock = p.getStock();  // 재고 차감 후 저장
 
+                        // 재고가 변한 것을 출력
                         System.out.println(p.getName() + "\n 재고가 " + beforeStock + "개에서 " + afterStock + "개로 업데이트되었습니다.");
                     }
 
@@ -144,19 +141,20 @@ public class CommerceSystem {
 
                 cart.clear();
                 System.out.println("진행중인 주문이 취소되었습니다. 장바구니를 비웠습니다.");
+                continue;
             }
+
 
             // 0번: 프로그램 종료
             if (choice == 0) {
                 System.out.println("커머스 플랫폼을 종료합니다");
                 run = false;
+                continue;
             }
 
-            // 9번: 관리자 모드
+            // 6번: 관리자 모드
             if (choice == 6) {
-
                 adminSystem.start(sc);
-                continue;
             }
             
             
@@ -177,6 +175,7 @@ public class CommerceSystem {
                 boolean inCategory = true;
                 ProductFilter productFilter = new ProductFilter();
 
+                // 카테고리 안의 메뉴 반복문
                 while (inCategory) {
                     System.out.println("\n[ " + selectedCategory.getName() + "카테고리 ]");
 
