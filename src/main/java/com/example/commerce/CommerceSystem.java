@@ -23,17 +23,13 @@ public class CommerceSystem {
         if (customer == null) {
             throw new IllegalArgumentException("Customer는 null일 수 없습니다.");
         }
-
         this.customer = customer;
-
         this.adminSystem = new AdminSystem(this.categories, this.cart);
     }
-
 
     private String formatPrice(int price) {
         return String.format("%,d", price);
     }
-
 
     // 프로그램 시작 메서드
     public void start() {
@@ -75,7 +71,7 @@ public class CommerceSystem {
                 adminSystem.start(sc);
                 continue;
             }
-            CategoryMenu(sc, choice);
+            categoryMenu(sc, choice);
         }
     }
 
@@ -167,6 +163,7 @@ public class CommerceSystem {
             customer.addOrderAmount(originalPrice);
             cart.clear();
             System.out.println("\n주문이 완료되었습니다...! 총 금액: " + String.format("%,d", finalPrice) + "원\n");
+            return;
         }
         if (confirm == 2) {
             System.out.println("메인으로 돌아갑니다.");
@@ -199,7 +196,7 @@ public class CommerceSystem {
     }
 
 
-    private void CategoryMenu(Scanner sc, int choice) {
+    private void categoryMenu(Scanner sc, int choice) {
         // 사용자가 입력한 번호를 인덱스로 바꿈
         int categoryIndex = choice - 1;
 
@@ -253,6 +250,9 @@ public class CommerceSystem {
             }
             productFilter.printProducts(showProducts);
             boolean goMain = pickProduct(sc, showProducts);
+            if (goMain) {
+                break;
+            }
         }
     }
 
