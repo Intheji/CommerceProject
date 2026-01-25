@@ -13,7 +13,6 @@ public class CommerceSystem {
     private Cart cart = new Cart();
     private AdminSystem adminSystem;
 
-
     public CommerceSystem(List<Category> categories, Customer customer) {
 
         // categories 원본을 그대로 들고 있지 않고 복사본 저장
@@ -75,7 +74,6 @@ public class CommerceSystem {
         }
     }
 
-
     // 메인메뉴 출력
     private void printMainMenu() {
         // 프로그램 시작 출력
@@ -99,7 +97,6 @@ public class CommerceSystem {
         System.out.println("0. 종료        | 프로그램 종료");
     }
 
-
     // 장바구니에 담긴 상품 출력, 총 주문 금액 계산 메서드
     private int printCartAndTotal() {
 
@@ -122,7 +119,6 @@ public class CommerceSystem {
 
         return totalPrice;
     }
-
 
     // 장바구니 목록 출력과 주문 확정
     private void confirmCartMenu(Scanner sc) {
@@ -184,7 +180,6 @@ public class CommerceSystem {
         System.out.println("잘못된 입력이에용. 메인으로 돌아갑니다.");
     }
 
-
     // 주문 취소
     private void cancelOrder() {
         if (cart.isEmpty()) {
@@ -194,7 +189,6 @@ public class CommerceSystem {
         cart.clear();
         System.out.println("진행중인 주문이 취소되었습니다. 장바구니를 비웠어요.");
     }
-
 
     private void categoryMenu(Scanner sc, int choice) {
         // 사용자가 입력한 번호를 인덱스로 바꿈
@@ -208,7 +202,6 @@ public class CommerceSystem {
 
         // categoryIndex에 해당하는 카테고리를 리스트에서 꺼냄
         Category selectedCategory = categories.get(categoryIndex);
-
 
         // 카테고리용
         boolean inCategory = true;
@@ -256,7 +249,15 @@ public class CommerceSystem {
         }
     }
 
+    private Product selectProduct(List<Product> showProducts, int productChoice) {
+        int productIndex = productChoice - 1;
 
+        if (productIndex < 0  || productIndex >= showProducts.size()) {
+            System.out.println("잘못된 상품 번호: " + productChoice);
+            return null;
+        }
+        return showProducts.get(productIndex);
+    }
 
     private boolean pickProduct(Scanner sc, List<Product> showProducts) {
 
@@ -268,17 +269,10 @@ public class CommerceSystem {
             return true;        // 이건 메인으로 복귀
         } else {
 
-            // 사용자가 입력한 상품 번호를 인덱스로 변환
-            int productIndex = productChoice - 1;
-
-            // 상품 번호 범위 벗어났나요?
-            if (productIndex < 0 || productIndex >= showProducts.size()) {
-                System.out.println("잘못된 상품 번호입니다: " + productChoice);
+            Product selectedProduct = selectProduct(showProducts, productChoice);
+            if (selectedProduct == null) {
                 return false;
             }
-
-            // 선택한 상품 가져옴
-            Product selectedProduct = showProducts.get(productIndex);
 
             // 장바구니 추가 여부 질문
             System.out.println();
