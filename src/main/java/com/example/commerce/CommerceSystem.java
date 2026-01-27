@@ -259,6 +259,49 @@ public class CommerceSystem {
         return showProducts.get(productIndex);
     }
 
+    private boolean addToCart(Scanner sc, Product selectedProduct) {
+        // 장바구니 추가 질문
+        System.out.println();
+        System.out.println("\"" + selectedProduct.getName()
+                + " | " + formatPrice(selectedProduct.getPrice()) + "원"
+                + " | " + selectedProduct.getDescription()
+                + " | " + selectedProduct.getStock() + "\"");
+        System.out.println("위 상품을 장바구니에 추가하시겠습니까?");
+        System.out.println("1. 확인       2. 취소");
+
+        // 입력 받기
+        int addChoice = InputUtil.readInt(sc, "선택> ");
+
+        if (addChoice == 1) {
+
+            int quantity = InputUtil.readInt(sc, "수량: ");
+
+            // 수량이 1 이상인지 확인
+            if (quantity <= 0) {
+                System.out.println("수량은 1개 이상 입력하세요.");
+                return false;
+            }
+
+            // 재고 체크
+            if (quantity > selectedProduct.getStock()) {
+                System.out.println("재고가 부족합니다. 현재 재고: " + selectedProduct.getStock() + "개");
+                return false;
+            }
+
+            // 장바구니 추가
+            cart.addItem(selectedProduct, quantity);
+            System.out.println(selectedProduct.getName() + "가 " + quantity + "개 장바구니에 추가되었습니다.");
+            return true;
+
+        } else if (addChoice == 2) {
+            System.out.println("장바구니 추가를 취소했습니다.");
+            return true;
+        } else {
+            System.out.println("잘못된 입력입니다.");
+            return true;
+        }
+    }
+
     private boolean pickProduct(Scanner sc, List<Product> showProducts) {
 
         System.out.println("0. 뒤로가기");
@@ -268,48 +311,14 @@ public class CommerceSystem {
         if (productChoice == 0) {
             return true;        // 이건 메인으로 복귀
         } else {
-
             Product selectedProduct = selectProduct(showProducts, productChoice);
             if (selectedProduct == null) {
                 return false;
             }
 
-            // 장바구니 추가 여부 질문
-            System.out.println();
-            System.out.println("\"" + selectedProduct.getName()
-                    + " | " + formatPrice(selectedProduct.getPrice()) + "원"
-                    + " | " + selectedProduct.getDescription()
-                    + " | " + selectedProduct.getStock() + "\"");
-            System.out.println("위 상품을 장바구니에 추가하시겠습니까?");
-            System.out.println("1. 확인       2. 취소");
-
-            // 입력 받기
-            int addChoice = InputUtil.readInt(sc, "선택> ");
-
-            if (addChoice == 1) {
-
-                int quantity = InputUtil.readInt(sc, "수량: ");
-
-                // 수량이 1 이상인지 확인
-                if (quantity <= 0) {
-                    System.out.println("수량은 1개 이상 입력하세요.");
-                    return false;
-                }
-
-                // 재고 체크
-                if (quantity > selectedProduct.getStock()) {
-                    System.out.println("재고가 부족합니다. 현재 재고: " + selectedProduct.getStock() + "개");
-                    return false;
-                }
-
-                // 장바구니 추가
-                cart.addItem(selectedProduct, quantity);
-                System.out.println(selectedProduct.getName() + "가 " + quantity + "개 장바구니에 추가되었습니다.");
-
-            } else if (addChoice == 2) {
-                System.out.println("장바구니 추가를 취소했습니다.");
-            } else {
-                System.out.println("잘못된 입력입니다.");
+            boolean ok = addToCart(sc, selectedProduct);
+            if (!ok) {
+                return false;
             }
 
             // 고객 상태 출력(누적 금액 + 등급)
