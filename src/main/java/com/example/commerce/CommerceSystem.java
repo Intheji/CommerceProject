@@ -226,18 +226,8 @@ public class CommerceSystem {
             // 상품 목록 가져오기
             List<Product> allProducts = selectedCategory.getProducts();
 
-            // 필터하고 보여줌
-            List<Product> showProducts;
-
-            if (viewChoice == 1) {
-                showProducts = productFilter.all(allProducts);
-            } else if (viewChoice == 2) {
-                showProducts = productFilter.underMillion(allProducts);
-                System.out.println("\n[100만원 이하 상품 목록]");
-            } else if (viewChoice == 3) {
-                showProducts = productFilter.overMillion(allProducts);
-                System.out.println("\n[100만원 초과 상품 목록]");
-            } else {
+            List<Product> showProducts = getFilteredProducts(viewChoice, allProducts, productFilter);
+            if (showProducts == null) {
                 System.out.println("잘못된 입력이에염");
                 continue;
             }
@@ -247,6 +237,20 @@ public class CommerceSystem {
                 break;
             }
         }
+    }
+
+    private List<Product> getFilteredProducts(int viewChoice, List<Product> allProducts, ProductFilter productFilter) {
+
+        if (viewChoice == 1) {
+            return productFilter.all(allProducts);
+        } else if (viewChoice == 2) {
+            System.out.println("\n[100만원 이하 상품 목록]");
+            return productFilter.underMillion(allProducts);
+        } else if (viewChoice == 3) {
+            System.out.println("\n[100만원 초과 상품 목록]");
+            return productFilter.overMillion(allProducts);
+        }
+        return null;
     }
 
     private Product selectProduct(List<Product> showProducts, int productChoice) {
