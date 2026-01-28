@@ -321,13 +321,16 @@ public class CommerceSystem {
                 return false;
             }
 
-            // 고객 상태 출력(누적 금액 + 등급)
-            System.out.println(
-                    "고객: " + customer.getName()
-                            + " | 누적 주문 금액: " + String.format("%,d", customer.getTotalOrderAmount())
-                            + " | 등급: " + customer.getGrade()
-            );
+            printCustomerStatus();
             return false;
         }
+    }
+
+    private void printCustomerStatus() {
+        System.out.println(
+                "고객: " + customer.getName()
+                        + " | 누적 주문 금액: " + String.format("%,d", customer.getTotalOrderAmount())
+                        + " | 등급: " + customer.getGrade()
+        );
     }
 }

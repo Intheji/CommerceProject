@@ -43,7 +43,6 @@ public class Category {
         }
 
         for (Product product : products) {
-
             if (product.getName().equalsIgnoreCase(name)) {
                 return true;
             }
